@@ -1,0 +1,53 @@
+<h1>🍔 Calculadora de Hambúrguer</h1>
+
+<div class="input-group">
+  <label>Quantidade de Hambúrgueres:</label>
+  <input type="number" [(ngModel)]="quantityOfBurgers" min="1" />
+</div>
+
+<div class="ingredients">
+  <div class="ingredients-header">
+    <h2>Ingredientes:</h2>
+    <button class="select-all-btn" (click)="selectAllIngredients()">
+      Marcar Tudo
+    </button>
+  </div>
+
+  <div *ngFor="let ingredient of allIngredients" class="ingredient-item">
+    <input
+      type="checkbox"
+      [checked]="selectedIngredientIds.includes(ingredient.id)"
+      (change)="toggleIngredient(ingredient.id)"
+    />
+    <label>{{ ingredient.name }}</label>
+  </div>
+</div>
+
+<div class="actions">
+  <button class="calculate-btn" (click)="calculate()">Calcular</button>
+</div>
+
+<div *ngIf="calculationResult" class="results">
+  <h2>Resultado</h2>
+  <div *ngFor="let result of calculationResult.results" class="result-item">
+    <p>
+      <strong>{{ result.name }}</strong
+      ><br />
+      Precisa de {{ result.totalNeeded }} unidades/gramas (Pacotes:
+      {{ result.packagesNeeded }})<br />
+      Custo: R$ {{ result.cost.toFixed(2) }}
+    </p>
+  </div>
+
+  <p class="summary">
+    <strong
+      >Custo Total: R$ {{ calculationResult.totalCost.toFixed(2) }}</strong
+    >
+  </p>
+  <p class="summary">
+    <strong
+      >Custo por Hambúrguer: R$
+      {{ calculationResult.costPerBurger.toFixed(2) }}</strong
+    >
+  </p>
+</div>
