@@ -5,6 +5,7 @@
   <input type="number" [(ngModel)]="quantityOfBurgers" min="1" />
 </div>
 
+<!-- Ingredientes Comuns -->
 <div class="ingredients">
   <div class="ingredients-header">
     <h2>Ingredientes:</h2>
@@ -13,14 +14,37 @@
     </button>
   </div>
 
-  <div *ngFor="let ingredient of allIngredients" class="ingredient-item">
-    <input
-      type="checkbox"
-      [checked]="selectedIngredientIds.includes(ingredient.id)"
-      (change)="toggleIngredient(ingredient.id)"
-    />
-    <label>{{ ingredient.name }}</label>
+  <ng-container *ngFor="let ingredient of allIngredients">
+    <div class="ingredient-item" *ngIf="!ingredient.isSauce">
+      <input
+        type="checkbox"
+        [checked]="selectedIngredientIds.includes(ingredient.id)"
+        (change)="toggleIngredient(ingredient.id)"
+      />
+      <label>{{ ingredient.name }}</label>
+    </div>
+  </ng-container>
+</div>
+
+<!-- Molhos -->
+<div class="sauces">
+  <div class="ingredients-header">
+    <h2>Molhos:</h2>
+    <button class="select-all-btn" (click)="selectAllSauces()">
+      Marcar Tudo
+    </button>
   </div>
+
+  <ng-container *ngFor="let ingredient of allIngredients">
+    <div class="ingredient-item" *ngIf="ingredient.isSauce">
+      <input
+        type="checkbox"
+        [checked]="selectedIngredientIds.includes(ingredient.id)"
+        (change)="toggleIngredient(ingredient.id)"
+      />
+      <label>{{ ingredient.name }}</label>
+    </div>
+  </ng-container>
 </div>
 
 <div class="actions">
@@ -37,6 +61,19 @@
       {{ result.packagesNeeded }})<br />
       Custo: R$ {{ result.cost.toFixed(2) }}
     </p>
+
+    <div *ngIf="result.subResults?.length > 0" class="sub-results">
+      <h4>Subingredientes:</h4>
+      <div *ngFor="let sub of result.subResults" class="sub-result-item">
+        <p>
+          ➔ <strong>{{ sub.name }}</strong
+          ><br />
+          Precisa de {{ sub.totalNeeded.toFixed(2) }} unidades/gramas (Pacotes:
+          {{ sub.packagesNeeded }})<br />
+          Custo: R$ {{ sub.cost.toFixed(2) }}
+        </p>
+      </div>
+    </div>
   </div>
 
   <p class="summary">

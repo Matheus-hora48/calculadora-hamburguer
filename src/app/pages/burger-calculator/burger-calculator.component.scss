@@ -192,6 +192,43 @@ h1 {
   color: #ff9800;
 }
 
+.sauces {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  .ingredients-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+  }
+}
+
+.sub-results {
+  margin-top: 10px;
+  padding-left: 15px;
+  border-left: 2px solid #4caf50;
+
+  h4 {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    color: #4caf50;
+  }
+}
+
+.sub-result-item {
+  margin-bottom: 10px;
+
+  p {
+    font-size: 0.95rem;
+    color: #555;
+  }
+}
+
 @media (max-width: 600px) {
   .input-group {
     flex-direction: column;
